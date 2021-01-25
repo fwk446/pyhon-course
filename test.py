@@ -8,3 +8,4 @@ def circumference_circle(r):
 def area_circle(r):
     return np.pi*r**2
 
+print("hello world!")
