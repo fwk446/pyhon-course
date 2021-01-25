@@ -9,3 +9,5 @@ def circumference_circle(r):
 def area_circle(r):
     return np.pi*r**2
 
+def volume_sphere (r):
+    return (4/3)*np.pi*r**3
