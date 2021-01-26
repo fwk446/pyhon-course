@@ -21,12 +21,22 @@ def curve_fit(d, deg=20):
     V=np.polynomial.legendre.legvander(xs,deg)
     coeffs=np.linalg.lstsq(V,d,rcond=None)[0]
     g=np.polynomial.legendre.legval(xs,coeffs)
-    return g
-curve_data = curve_fit(data)
-
+    
+    #error calculation
+    error2 = ((d-g)**2)
+    error = np.abs(d-g)
+    c_error = np.sum(error)
+    return g, error2
+curve_data, er = curve_fit(data)
+# c_err = np.sum(er)
+err_bar = max(er)
+print (err_bar)
+print (er)
 #peak finder
-peaks, _ = find_peaks(curve_data, height=1)
+peaks, _ = find_peaks(curve_data, height=0.8)
 fig, axes = plt.subplots()
 axes.plot(data)
 axes.plot(curve_data)
+# axes.plot(sig)
+# axes.plot(er)
 axes.plot(peaks, curve_data[peaks], "x")
