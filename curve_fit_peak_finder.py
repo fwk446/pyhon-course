@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 n=100
 deg1 = 30
 xs=np.linspace(0,1,n)
-
+x= np.arange(0, n, 1)
 # input data generation
 def data_f (f):
     return np.random.normal(0, 0.5, n) +np.sin (np.linspace(0, f*np.pi, n))
@@ -33,10 +33,23 @@ err_bar = max(er)
 print (err_bar)
 print (er)
 #peak finder
-peaks, _ = find_peaks(curve_data, height=0.8)
+peaks, _ = find_peaks(curve_data, height=1, threshold= 1)
 fig, axes = plt.subplots()
 axes.plot(data)
+axes.plot(peaks, data[peaks], "x")
 axes.plot(curve_data)
+
+# put error bars on the points, but put no lines between the errorbars
+axes.errorbar(x,data, yerr=max(er), ecolor='b', elinewidth=2, linestyle='')
+axes.set_xlabel('wavlength [$nm$]', size=15)
+axes.set_ylabel('R', size=15)
+axes.set_title('R data and fitting', size=20)
+axes.legend()
+axes.legend(loc=3)
+fig.savefig('data and fitting.png')
 # axes.plot(sig)
 # axes.plot(er)
-axes.plot(peaks, curve_data[peaks], "x")
+fig, axes = plt.subplots()
+axes.plot(er)
+#axes.legend('error')
+fig.savefig('error.png')
